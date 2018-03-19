@@ -6,11 +6,11 @@ import (
 	"strconv"
 )
 
-func (c *Client) queryAlertInfraConditions(policyID int) ([]AlertInfraCondition, error) {
+func (c *InfraClient) queryAlertInfraConditions(policyID int) ([]AlertInfraCondition, error) {
 	conditions := []AlertInfraCondition{}
 
 	// TODO: CHANGE TO INFRA ENDPOINT
-	reqURL, err := url.Parse("/v2/alerts/conditions") 
+	reqURL, err := url.Parse("/alerts/conditions") 
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (c *Client) queryAlertInfraConditions(policyID int) ([]AlertInfraCondition,
 }
 
 // GetAlertInfraCondition gets information about a Infra alert condition given an ID and policy ID.
-func (c *Client) GetAlertInfraCondition(policyID int, id int) (*AlertInfraCondition, error) {
+func (c *InfraClient) GetAlertInfraCondition(policyID int, id int) (*AlertInfraCondition, error) {
 	conditions, err := c.queryAlertInfraConditions(policyID)
 	if err != nil {
 		return nil, err
@@ -59,12 +59,12 @@ func (c *Client) GetAlertInfraCondition(policyID int, id int) (*AlertInfraCondit
 }
 
 // ListAlertInfraConditions returns Infra alert conditions for the specified policy.
-func (c *Client) ListAlertInfraConditions(policyID int) ([]AlertInfraCondition, error) {
+func (c *InfraClient) ListAlertInfraConditions(policyID int) ([]AlertInfraCondition, error) {
 	return c.queryAlertInfraConditions(policyID)
 }
 
 // CreateAlertInfraCondition creates an Infra alert condition given the passed configuration.
-func (c *Client) CreateAlertInfraCondition(condition AlertInfraCondition) (*AlertInfraCondition, error) {
+func (c *InfraClient) CreateAlertInfraCondition(condition AlertInfraCondition) (*AlertInfraCondition, error) {
 	policyID := condition.PolicyID
 
 	req := struct {
@@ -78,7 +78,7 @@ func (c *Client) CreateAlertInfraCondition(condition AlertInfraCondition) (*Aler
 	}{}
 
 
-	u := &url.URL{Path: "/v2/alerts/conditions"}
+	u := &url.URL{Path: "/alerts/conditions"}
 	_, err := c.Do("POST", u.String(), req, &resp)
 	if err != nil {
 		return nil, err
@@ -90,7 +90,7 @@ func (c *Client) CreateAlertInfraCondition(condition AlertInfraCondition) (*Aler
 }
 
 // UpdateAlertInfraCondition updates an Infra alert condition with the specified changes.
-func (c *Client) UpdateAlertInfraCondition(condition AlertInfraCondition) (*AlertInfraCondition, error) {
+func (c *InfraClient) UpdateAlertInfraCondition(condition AlertInfraCondition) (*AlertInfraCondition, error) {
 	policyID := condition.PolicyID
 	id := condition.ID
 
@@ -104,7 +104,7 @@ func (c *Client) UpdateAlertInfraCondition(condition AlertInfraCondition) (*Aler
 		Condition AlertInfraCondition `json:"data,omitempty"`
 	}{}
 
-	u := &url.URL{Path: fmt.Sprintf("/v2/alerts/conditions/%v", id)}
+	u := &url.URL{Path: fmt.Sprintf("/alerts/conditions/%v", id)}
 	_, err := c.Do("PUT", u.String(), req, &resp)
 	if err != nil {
 		return nil, err
@@ -116,8 +116,8 @@ func (c *Client) UpdateAlertInfraCondition(condition AlertInfraCondition) (*Aler
 }
 
 // DeleteAlertInfraCondition removes the Infra alert condition given the specified ID and policy ID.
-func (c *Client) DeleteAlertInfraCondition(policyID int, id int) error {
-	u := &url.URL{Path: fmt.Sprintf("/v2/alerts/conditions/%v", id)}
+func (c *InfraClient) DeleteAlertInfraCondition(policyID int, id int) error {
+	u := &url.URL{Path: fmt.Sprintf("/alerts/conditions/%v", id)}
 	_, err := c.Do("DELETE", u.String(), nil, nil)
 	return err
 }

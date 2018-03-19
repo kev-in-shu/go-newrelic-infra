@@ -7,7 +7,7 @@ import (
 )
 
 func TestQueryAlertInfraConditions(t *testing.T) {
-	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -49,7 +49,7 @@ func TestQueryAlertInfraConditions(t *testing.T) {
 }
 
 func TestGetAlertInfraCondition(t *testing.T) {
-	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -92,7 +92,7 @@ func TestGetAlertInfraCondition(t *testing.T) {
 }
 
 func TestListAlertInfraConditions(t *testing.T) {
-	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -134,7 +134,7 @@ func TestListAlertInfraConditions(t *testing.T) {
 }
 
 func TestCreateAlertInfraCondition(t *testing.T) {
-	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -189,7 +189,7 @@ func TestCreateAlertInfraCondition(t *testing.T) {
 }
 
 func TestUpdateAlertInfraCondition(t *testing.T) {
-	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -246,13 +246,13 @@ func TestUpdateAlertInfraCondition(t *testing.T) {
 func TestDeleteAlertInfraCondition(t *testing.T) {
 	policyID := 123
 	conditionID := 12345
-	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		if r.Method != "DELETE" {
 			t.Fatal("DeleteAlertInfraCondition did not use DELETE method")
 		}
-		if r.URL.Path != fmt.Sprintf("/v2/alerts/conditions/%v", conditionID) {
+		if r.URL.Path != fmt.Sprintf("/alerts/conditions/%v", conditionID) {
 			t.Fatal("DeleteAlertInfraCondition did not use the correct URL")
 		}
 	}))

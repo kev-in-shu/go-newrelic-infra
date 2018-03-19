@@ -18,6 +18,18 @@ func newTestAPIClient(handler http.Handler) *Client {
 	return &c
 }
 
+func newInfraTestAPIClient(handler http.Handler) *InfraClient {
+	ts := httptest.NewServer(handler)
+
+	c := NewInfra(Config{
+		APIKey:  "123456",
+		BaseURL: ts.URL,
+		Debug:   false,
+	})
+
+	return &c
+}
+
 func newTestAPIClientTLSConfig(handler http.Handler) *Client {
 	ts := httptest.NewServer(handler)
 
