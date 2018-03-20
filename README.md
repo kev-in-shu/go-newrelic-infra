@@ -1,1 +1,1 @@
-# go-newrelic-api
+# go-newrelic-api-infra

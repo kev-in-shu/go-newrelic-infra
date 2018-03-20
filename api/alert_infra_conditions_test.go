@@ -7,7 +7,7 @@ import (
 )
 
 func TestQueryAlertInfraConditions(t *testing.T) {
-	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -49,7 +49,7 @@ func TestQueryAlertInfraConditions(t *testing.T) {
 }
 
 func TestGetAlertInfraCondition(t *testing.T) {
-	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -92,7 +92,7 @@ func TestGetAlertInfraCondition(t *testing.T) {
 }
 
 func TestListAlertInfraConditions(t *testing.T) {
-	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -134,7 +134,7 @@ func TestListAlertInfraConditions(t *testing.T) {
 }
 
 func TestCreateAlertInfraCondition(t *testing.T) {
-	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -159,19 +159,19 @@ func TestCreateAlertInfraCondition(t *testing.T) {
 	}))
 
 	infraAlertConditionWarning := AlertInfraThreshold{
-		Value:        30,
-		Duration:     100,
-		Function:     "any",
+		Value:    30,
+		Duration: 100,
+		Function: "any",
 	}
 
 	infraAlertCondition := AlertInfraCondition{
-		PolicyID:      123,
-		Name:          "Disk Space Condition",
-		Enabled:       true,
-		Warning:       infraAlertConditionWarning,
-		Comparison:    "below",
-		Event:         "StorageSample",
-		Select:        "diskFreePercent",
+		PolicyID:   123,
+		Name:       "Disk Space Condition",
+		Enabled:    true,
+		Warning:    infraAlertConditionWarning,
+		Comparison: "below",
+		Event:      "StorageSample",
+		Select:     "diskFreePercent",
 	}
 
 	infraAlertConditionResp, err := c.CreateAlertInfraCondition(infraAlertCondition)
@@ -189,7 +189,7 @@ func TestCreateAlertInfraCondition(t *testing.T) {
 }
 
 func TestUpdateAlertInfraCondition(t *testing.T) {
-	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`
@@ -214,19 +214,19 @@ func TestUpdateAlertInfraCondition(t *testing.T) {
 	}))
 
 	infraAlertConditionWarning := AlertInfraThreshold{
-		Value:        30,
-		Duration:     100,
-		Function:     "any",
+		Value:    30,
+		Duration: 100,
+		Function: "any",
 	}
 
 	infraAlertCondition := AlertInfraCondition{
-		PolicyID:      123,
-		Name:          "Test Condition",
-		Enabled:       true,
-		Warning:       infraAlertConditionWarning,
-		Comparison:    "below",
-		Event:         "StorageSample",
-		Select:        "diskFreePercent",
+		PolicyID:   123,
+		Name:       "Test Condition",
+		Enabled:    true,
+		Warning:    infraAlertConditionWarning,
+		Comparison: "below",
+		Event:      "StorageSample",
+		Select:     "diskFreePercent",
 	}
 
 	infraAlertConditionResp, err := c.UpdateAlertInfraCondition(infraAlertCondition)
@@ -246,7 +246,7 @@ func TestUpdateAlertInfraCondition(t *testing.T) {
 func TestDeleteAlertInfraCondition(t *testing.T) {
 	policyID := 123
 	conditionID := 12345
-	c := newInfraTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	c := newTestAPIClient(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		if r.Method != "DELETE" {

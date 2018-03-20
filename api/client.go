@@ -45,7 +45,7 @@ func New(config Config) Client {
 
 	baseURL := config.BaseURL
 	if baseURL == "" {
-		baseURL = "https://api.newrelic.com/v2"
+		baseURL = "https://infra-api.newrelic.com/v2"
 	}
 
 	r.SetHeader("X-Api-Key", config.APIKey)
