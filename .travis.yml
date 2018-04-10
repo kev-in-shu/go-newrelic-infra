@@ -1,4 +1,4 @@
-go_import_path: github.com/paultyng/go-newrelic
+go_import_path: github.com/kev-in-shu/go-newrelic-infra
 
 language: go
 go:
